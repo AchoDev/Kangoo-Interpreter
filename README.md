@@ -2,7 +2,7 @@ KANGOO is very bare bones programming language.
 It's not really made to be practical and is actually just built on top of java.
 Therefore it compiles to Java.
 
----- SYNTAX ----
+#---- SYNTAX ----
 
 variables
 
