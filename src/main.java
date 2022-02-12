@@ -11,6 +11,7 @@ public class main
 
     static Int var = new Int("name", 10);
     static Map<String, Integer> ints = new HashMap<String, Integer>();
+    static ArrayList<String>[] commands;
 
     private static Scanner s;
     public static void main(String[] args)
@@ -67,7 +68,6 @@ public class main
     private static void compile(File file) throws FileNotFoundException
     {
         String[] lines;
-        ArrayList<String>[] commands;
         String code = "";
         int rep;
 
@@ -92,11 +92,45 @@ public class main
 
         for(ArrayList<String> s : commands)
         {
+            int type = checkType(s);
+
+            switch (type)
+            {
+                case 1:
+                    ints.put(s.get(1), Integer.parseInt(s.get(3)));
+                    print(ints.get(s.get(1)));
+                    break;
+                default:
+                    print("error");
+            }
+        }
+
+        /*for(ArrayList<String> s : commands)
+        {
             for(int i = 0; i < s.size(); i++)
             {
                 print(s.get(i));
             }
+        }*/
+    }
+
+    private static int checkType(ArrayList<String> s)
+    {
+        // this method checks the type of command that was written
+        // 1 = variable (int)
+        // rest is coming
+
+        switch(s.get(0))
+        {
+            case "var":
+                return 1;
+
+            default:
+                print("syntax error");
+                break;
         }
+
+        return 0;
     }
 
     private static void selectDirectory()
