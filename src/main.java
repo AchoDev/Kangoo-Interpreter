@@ -1,15 +1,34 @@
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.nio.file.FileAlreadyExistsException;
+import java.util.*;
+import java.lang.Integer;
+
 
 public class main
 {
+
+    static Int var = new Int("name", 10);
+    static Map<String, Integer> ints = new HashMap<String, Integer>();
+
     private static Scanner s;
     public static void main(String[] args)
     {
         s = new Scanner(System.in);
+        print(var.getValue());
+
+        ints.put("name", 10);
+
+        print(ints.get("name"));
+
+        // s.nextInt();
         checkAns();
+    }
+
+    public static String turnOneLine(String code)
+    {
+        return code;
     }
 
     private static void checkAns()
@@ -45,6 +64,41 @@ public class main
         }
     }
 
+    private static void compile(File file) throws FileNotFoundException
+    {
+        String[] lines;
+        ArrayList<String>[] commands;
+        String code = "";
+        int rep;
+
+        Scanner scanner = new Scanner(file);
+
+        while (scanner.hasNext()) {
+            code = code + scanner.nextLine() + "/";
+        }
+
+        lines = code.split("/");
+
+        commands = new ArrayList[lines.length];
+
+        for(int i = 0; i < lines.length; i++)
+        {
+            commands[i] = new ArrayList<String>();
+            for(int j = 0; j < lines[i].split(" ").length; j++)
+            {
+                commands[i].add(lines[i].split(" ")[j]);
+            }
+        }
+
+        for(ArrayList<String> s : commands)
+        {
+            for(int i = 0; i < s.size(); i++)
+            {
+                print(s.get(i));
+            }
+        }
+    }
+
     private static void selectDirectory()
     {
         clear();
@@ -59,25 +113,21 @@ public class main
             print("test");
 
             file = fileChooser.getSelectedFile();
-
             try
             {
-                Scanner scanner = new Scanner(file);
-                print(scanner.nextLine());
+                print("something");
+                compile(file);
             }
-            catch (FileNotFoundException fnfe)
+             catch(FileNotFoundException e)
             {
                 print("file not found");
             }
         }
     }
 
-    // var name = "huanson"
-    // loop(10) -> var i
-    //{ print("hey")}
-
-    // var name = "huanson"
-    // l
+    // var:string = "HEY" var num = 10
+    // loop ( 10 )
+    //
 
     // two functions to easily print, instead of always writing System.out....
     public static void print(String str)
@@ -87,7 +137,19 @@ public class main
 
     public static void print(int i)
     {
-        System.out.println(Integer.toString(i));
+        System.out.println(String.valueOf(i));
+    }
+
+    public static void print(boolean cond)
+    {
+        if(cond)
+        {
+            print("true");
+        }
+         else
+        {
+            print("false");
+        }
     }
 
     public static void clear()
